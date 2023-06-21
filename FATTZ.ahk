@@ -42,16 +42,28 @@ Class FancyAssToolTipZ {
 		this.DestroyTT := ObjBindMethod(this , "GuiDestroy")
 	}
 
+	StartUp(CallSign){
+		this.CallSign := CallSign
+		this.Msg := new this.TxtBox()
+		this.Title := new this.TxtBox()
+		this.Timeout := 3000
+		this.DestroyTT := ObjBindMethod(this , "GuiDestroy")
+		this.xOffset := 8
+		this.yOffset := 12
+
+	}
+
 	A( Msg, Title := "" , Timeout := "" , MsgColor := "" , TitleColor := "" ) {
+		If (! this.CallSign) {
+			this.StartUp("FancyAssToolTipZ")
+		}
 		If (!Timeout) {
 			Timeout := this.Timeout
 		}
-		CallSign := this.CallSign
 
 		If (this.Running){
 			this.GuiDestroy()
 		}
-		; Msgbox % CallSign
 		this.Msg.A(Msg)
 		If (Title){
 			this.Title.A(Title)
